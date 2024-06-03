@@ -1,6 +1,17 @@
 // pages/learner/attend.tsx
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import "../styles.css";
+import { BackgroundBeams } from '@/components/ui/background-beams';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from '@/components/ui/button';
 
 interface Option {
   text: string;
@@ -83,52 +94,65 @@ const AttendMCQ = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='h-[60rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-start antialiased'>
+    <BackgroundBeams/>
+    <p className='text-white mt-10 text-8xl font-extrabold m-4'>Loading !</p></div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className='h-[60rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-start antialiased'>
+    <BackgroundBeams/>
+    {error}</div>;
   }
 
   if (!questions.length) {
-    return <div>No questions available</div>;
+    return <div className='h-[60rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-start antialiased'>
+      <BackgroundBeams/>
+      <p className='text-white mt-10 text-8xl font-extrabold m-4'>No questions available</p></div>;
   }
 
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div>
-      <div key={currentQuestion.id} style={{ marginBottom: '20px' }}>
-        <h3>
-          {currentQuestionIndex + 1}. <span dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
-        </h3>
-        {currentQuestion.options.map((option, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              id={`${currentQuestion.id}-${index}`}
-              name={`${currentQuestion.id}`}
-              onChange={() => handleChange(currentQuestion.id, index)}
-              checked={responses[currentQuestion.id]?.[index] || false}
-            />
-            <label htmlFor={`${currentQuestion.id}-${index}`}>{option.text}</label>
+    <div className='h-[60rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-start antialiased'>
+      <BackgroundBeams/>
+      <div className=" text-orange-600 text-3xl font-semibold font-serif antialiased absolute top-0 right-[45%] m-4"><h1 className="" style={{textShadow: "#FC0 1px 0 10px"}}>IPROPEL</h1></div>
+      <Card className='relative max-w-[60%] min-w-[40%] top-[10rem]'>
+        <CardContent>
+          <div key={currentQuestion.id} style={{ marginBottom: '20px' }}>
+            <h3 className=' text-3xl flex font-medium text-white'>
+            {currentQuestionIndex + 1}. <span dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
+            </h3>
+          {currentQuestion.options.map((option, index) => (
+            <div className='text-xl font-medium text-orange-100' key={index}>
+              <input
+                type="checkbox"
+                id={`${currentQuestion.id}-${index}`}
+                name={`${currentQuestion.id}`}
+                onChange={() => handleChange(currentQuestion.id, index)}
+                checked={responses[currentQuestion.id]?.[index] || false}
+              />
+              <label htmlFor={`${currentQuestion.id}-${index}`}>{option.text}</label>
+            </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div>
+        </CardContent>
+      </Card>
+      
+      <div className='top-[10rem] relative'>
         {currentQuestionIndex > 0 && (
-          <button type="button" onClick={handlePrevious}>Previous</button>
+          <Button className='rounded-lg relative text-white font-medium m-4 outline outline-offset-2 outline-cyan-500 hover:bg-slate-200 hover:text-accent-foreground'  onClick={handlePrevious}>Previous</Button>
         )}
         {currentQuestionIndex < questions.length - 1 && (
-          <button type="button" onClick={handleNext}>Next</button>
+          <Button  className='rounded-lg relative text-white font-medium m-4 outline outline-offset-2 outline-cyan-500 hover:bg-white hover:text-accent-foreground'  onClick={handleNext}>Next</Button>
         )}
         {currentQuestionIndex === questions.length - 1 && (
-          <button type="button" onClick={handleSubmit}>Submit</button>
+          <Button className='rounded-lg relative text-white font-medium m-4 outline outline-offset-2 outline-pink-500 hover:bg-orange-100 hover:text-accent-foreground'  onClick={handleSubmit}>Submit</Button>
         )}
       </div>
       {result !== null && (
-        <div>
-          <h3>You got {result} out of {questions.length} questions correct.</h3>
+        <div className='relative top-[11rem]'>
+          <h3 className='text-3xl font-medium text-white '>You got {result} out of {questions.length} questions correct.</h3>
         </div>
       )}
     </div>

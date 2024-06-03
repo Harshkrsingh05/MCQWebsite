@@ -1,10 +1,11 @@
 // pages/instructor/create.tsx
 "use client";
+import "../styles.css";
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import axios from 'axios';
 import RichTextEditor from '../../components/ui/RichTextEditor';
 import { useState, useEffect } from 'react';
-
+import { BackgroundBeams } from "../../components/ui/background-beams";
 interface Option {
   text: string;
   isCorrect: boolean;
@@ -50,26 +51,31 @@ const CreateMCQ = () => {
     }
   };
 
+
   return (
-    <div className="max-w-lg mx-auto">
+    <>
+    <div className="h-[60rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-start antialiased" >
+      <BackgroundBeams />
+      <div className="text-orange-600 text-3xl font-semibold font-serif antialiased absolute top-0 right-[45%] m-4"><h1 className="" style={{textShadow: "#FC0 1px 0 10px"}}>IPROPEL</h1></div>
+    <div className="min-w-[40%] max-w-[60%] mx-auto mt-[9rem]">
       {alert.message && (
         <div
-          className={`p-4 mb-4 text-sm text-white ${
-            alert.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } rounded-lg`}
-          role="alert"
+        className={`p-4 mb-4 text-sm text-white ${
+          alert.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        } rounded-lg`}
+        role="alert"
         >
           {alert.message}
         </div>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-gray-700">Question:</label>
+          <label className="block text-white">Question:</label>
           <Controller
             name="question"
             control={control}
             render={({ field }) => (
-              <RichTextEditor value={field.value} onChange={field.onChange} />
+              <RichTextEditor  value={field.value} onChange={field.onChange} />
             )}
           />
         </div>
@@ -79,27 +85,29 @@ const CreateMCQ = () => {
               <input
                 {...register(`options.${index}.text` as const)}
                 placeholder={`Option ${index + 1}`}
-                className="border p-2 mr-2 flex-1"
+                className="relative border p-2 mr-2 flex-1  bg-orange-100"
               />
               <input
                 type="checkbox"
                 {...register(`options.${index}.isCorrect` as const)}
-                className="mr-2"
+                className="mr-2 relative"
               />
-              <button type="button" onClick={() => remove(index)} className="text-red-500">
+              <button type="button" onClick={() => remove(index)} className="text-red-500 relative">
                 Remove
               </button>
             </div>
           ))}
-          <button type="button" onClick={() => append({ text: '', isCorrect: false })} className="text-blue-500">
+          <button type="button" onClick={() => append({ text: '', isCorrect: false })} className="text-blue-500 relative">
             Add Option
           </button>
         </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+        <button type="submit" className="bg-blue-500 hover:bg-sky-700 text-white p-2 rounded relative">
           Submit
         </button>
       </form>
     </div>
+    </div>
+    </>
   );
 };
 
