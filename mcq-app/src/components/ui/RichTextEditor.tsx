@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic'; // Import dynamic from next/dynamic
-import 'react-quill/dist/quill.snow.css'; // Import Quill CSS
+import dynamic from 'next/dynamic'; 
+import 'react-quill/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Dynamically import ReactQuill
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); 
 
 interface RichTextEditorProps {
   value: string;
@@ -10,12 +10,12 @@ interface RichTextEditorProps {
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
-  const quillRef = useRef<any>(null); // Create a ref to Quill editor
+  const quillRef = useRef<any>(null); 
 
   useEffect(() => {
     if (quillRef.current) {
       const quill = quillRef.current.getEditor();
-      quill.root.setAttribute('spellcheck', 'false'); // Disable spellcheck
+      quill.root.setAttribute('spellcheck', 'false'); 
     }
   }, []);
 

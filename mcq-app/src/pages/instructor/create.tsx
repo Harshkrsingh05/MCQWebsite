@@ -1,4 +1,3 @@
-// pages/instructor/create.tsx
 "use client";
 import "../styles.css";
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
@@ -44,7 +43,7 @@ const CreateMCQ = () => {
     try {
       await axios.post('/api/question', data);
       setAlert({ message: 'Question submitted successfully!', type: 'success' });
-      reset(); // Reset form after successful submission
+      reset(); 
     } catch (error) {
       setAlert({ message: 'Error submitting question. Please try again.', type: 'error' });
       console.error('Error submitting form:', error);

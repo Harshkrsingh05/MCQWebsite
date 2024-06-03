@@ -1,4 +1,3 @@
-// pages/learner/attend.tsx
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import "../styles.css";
@@ -33,7 +32,6 @@ const AttendMCQ = () => {
   const [result, setResult] = useState<number | null>(null);
 
   useEffect(() => {
-    // Fetch questions from the API
     const fetchQuestions = async () => {
       try {
         const response = await axios.get('/api/question');
@@ -62,7 +60,6 @@ const AttendMCQ = () => {
 
   const handleSubmit = async () => {
     try {
-      // Calculate the number of correct answers
       let correctAnswers = 0;
       questions.forEach((question) => {
         const userResponses = responses[question.id] || [];
@@ -73,7 +70,6 @@ const AttendMCQ = () => {
       });
       setResult(correctAnswers);
 
-      // Optionally send the responses to the server
       await axios.post('/api/submit', { responses });
       console.log('Form submitted successfully');
     } catch (error) {
@@ -152,6 +148,7 @@ const AttendMCQ = () => {
       </div>
       {result !== null && (
         <div className='relative top-[11rem]'>
+          <h3 className='text-3xl font-medium text-white '>Your response has been recorded.</h3>
           <h3 className='text-3xl font-medium text-white '>You got {result} out of {questions.length} questions correct.</h3>
         </div>
       )}

@@ -7,8 +7,8 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET||'',
     })
-    // Add other providers if needed
+    // need to add other providers
   ],
-  // Add database configuration if using Prisma
+  // need to add database configuration using Prisma
 });
 
